@@ -204,7 +204,6 @@ RegisterServerEvent('qb-traphouse:server:RobNpc', function(Traphouse)
 end)
 
 -- Commands
-
 QBCore.Commands.Add("multikeys", Lang:t("info.give_keys"), {{name = "id", help = "Player id"}}, true, function(source, args)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
@@ -252,6 +251,30 @@ QBCore.Commands.Add("multikeys", Lang:t("info.give_keys"), {{name = "id", help =
         end
     else
         TriggerClientEvent('QBCore:Notify', src, Lang:t("error.not_online"), 'error')
+    end
+end)
+
+QBCore.Functions.CreateCallback('qb-traphouse:server:SecretLocation', function(_, cb)
+    local test = true
+    if test then 
+        local query = MySQL.query.await('SELECT * FROM secret_locations WHERE place = ?', {"traphouse"})        
+        local trapLoc = {}
+
+        for _, v in pairs(query) do 
+            if v.varible ~= nil then
+                if v.coords ~= nil then 
+                    trapLoc = json.decode(v.coords)
+                end
+            end
+        end 
+
+        if trapLoc ~= nil then
+            cb(trapLoc)
+        else 
+            cb(nil)
+        end 
+    else 
+        cb(nil)
     end
 end)
 

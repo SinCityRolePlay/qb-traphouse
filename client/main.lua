@@ -10,6 +10,7 @@ local IsHouseOwner = false
 local CanRob = true
 local IsRobbingNPC = false
 local RobbingTime = 3
+local trapLoc = {}
 
 -- zone check
 local isInsideEntranceTarget = false
@@ -376,7 +377,21 @@ end
 -- Events
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    QBCore.Functions.TriggerCallback('qb-traphouse:server:SecretLocation', function(result)
+        if result ~= nil then 
+            trapLoc = result
+        end
+    end, trapLoc)
     PlayerData = QBCore.Functions.GetPlayerData()
+end)
+
+AddEventHandler("onResourceStart", function()
+    QBCore.Functions.TriggerCallback('qb-traphouse:server:SecretLocation', function(result)
+        if result ~= nil then 
+            trapLoc = result
+        end
+    end)
+    
 end)
 
 RegisterNetEvent('qb-traphouse:client:EnterTraphouse', function()

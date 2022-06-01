@@ -41,7 +41,7 @@ Config.TrapHouses = {
             }
         },
         keyholders = {},
-        pincode = 1234,
+        pincode = 1642,
         inventory = {},
         opened = false,
         takingover = false,
@@ -110,11 +110,11 @@ Config.AllowedItems = {
         wait = 10000,
         reward = 1000,
     },
-    ["weed_brick"] = {
+    --[[["weed_brick"] = {
         name = "weed_brick",
         wait = 5000,
         reward = 250,
-    },
+    },]]
     ["phone"] = {
         name = "phone",
         wait = 2000,
